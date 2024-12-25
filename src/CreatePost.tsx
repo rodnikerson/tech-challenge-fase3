@@ -49,6 +49,19 @@ const CreatePost: React.FC = () => {
     setError(null)
     setSuccess(false)
 
+    const titleWords = formData.title.trim().split(/\s+/)
+    const contentLength = formData.content.trim().length
+
+    if (titleWords.length < 2) {
+      setError('O título deve conter pelo menos duas palavras.')
+      return
+    }
+
+    if (contentLength < 100) {
+      setError('O conteúdo inserido é muito curto. Aprimore-o.')
+      return
+    }
+
     try {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/posts`,
@@ -75,12 +88,12 @@ const CreatePost: React.FC = () => {
   }
 
   return (
-    <div className="container mx-auto max-w-2xl p-6">
+    <div className="container w-dvw mx-auto max-w-2xl p-6">
       <h1 className="text-3xl font-bold text-center mb-6">Criar Postagem</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-gray-700">Título</label>
+          <label className="block text-gray-300">Título</label>
           <input
             type="text"
             name="title"
@@ -93,7 +106,7 @@ const CreatePost: React.FC = () => {
         </div>
 
         <div>
-          <label className="block text-gray-700">Conteúdo</label>
+          <label className="block text-gray-300">Conteúdo</label>
           <textarea
             name="content"
             placeholder="Digite o conteúdo"
@@ -106,13 +119,13 @@ const CreatePost: React.FC = () => {
         </div>
 
         <div>
-          <label className="block text-gray-700">Autor</label>
+          <label className="block text-gray-300">Autor</label>
           <input
             type="text"
             name="author"
             value={formData.author}
             readOnly
-            className="w-full p-2 border rounded bg-gray-200"
+            className="w-full p-2 border rounded text-black bg-gray-300 font-semibold"
           />
         </div>
 
