@@ -5,6 +5,7 @@ import Login from './Login'
 import CreatePost from './CreatePost'
 import AdminPanel from './AdminPanel'
 import './App.css'
+import EditPost from './EditPost'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/create-post" element={<CreatePost />} />
       <Route path="/admin" element={<AdminPanel />} />
+      <Route path="/edit-post/:postId" element={<EditPost />} />
     </Routes>
   )
 }
