@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { login } from './redux/slices/authSlice'
 
 const Login: React.FC = () => {
   const [credentials, setCredentials] = useState({ email: '', password: '' })
   const [error, setError] = useState<string | null>(null)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -33,11 +36,14 @@ const Login: React.FC = () => {
         throw new Error('Credenciais inválidas.')
       }
 
+      dispatch(login(data.user))
+
       localStorage.setItem('token', data.token)
-      alert('Login successful!')
+
+      alert('Login realizado com sucesso!')
       navigate('/')
     } catch (err: any) {
-      console.error('Login error:', err.message)
+      console.error('Erro no login:', err.message)
       setError(err.message)
     }
   }
@@ -83,14 +89,6 @@ const Login: React.FC = () => {
             Entrar
           </button>
         </form>
-
-        <button
-          type="button"
-          onClick={() => navigate('/sign-up')}
-          className="border border-blue-700 bg-transparent text-blue-700 py-2 px-3 rounded-md w-full mt-3 hover:bg-blue-700 hover:text-white transition duration-300"
-        >
-          Realizar Cadastro
-        </button>
       </div>
     </div>
   )

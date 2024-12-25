@@ -38,11 +38,8 @@ function Home() {
 
       <ul className="flex flex-col space-y-4">
         {filteredPosts.map((post) => (
-          <Link to={`/post/${post.id}`}>
-            <li
-              key={post.id}
-              className="p-4 border rounded shadow-md h-56 flex flex-col justify-between bg-gray-800 text-white"
-            >
+          <Link to={`/post/${post.id}`} key={post.id}>
+            <li className="p-4 border rounded shadow-md h-56 flex flex-col justify-between bg-gray-800 text-white">
               <div className="flex flex-col justify-between h-full">
                 <h2 className="text-2xl font-semibold mb-2">{post.title}</h2>
                 <p className="text-sm text-gray-400 mb-2">Por: {post.author}</p>
