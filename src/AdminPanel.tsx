@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { FaEdit } from 'react-icons/fa'
 import { MdDeleteForever } from 'react-icons/md'
+import { useAuth } from './hooks/useAuth'
 
 function AdminPanel() {
   const dispatch = useDispatch<AppDispatch>()
@@ -13,11 +14,7 @@ function AdminPanel() {
   const { posts, loading, error } = useSelector(
     (state: RootState) => state.posts
   )
-  const user = useSelector((state: RootState) => state.auth.user)
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated
-  )
-  const isAdmin = user?.role === 'ADMIN'
+  const { isAuthenticated, isAdmin } = useAuth()
 
   useEffect(() => {
     if (isAuthenticated && isAdmin) {

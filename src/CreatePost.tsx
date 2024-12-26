@@ -2,13 +2,12 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { RootState } from './redux/store'
+import { useAuth } from './hooks/useAuth'
 
 const CreatePost: React.FC = () => {
   const navigate = useNavigate()
   const user = useSelector((state: RootState) => state.auth.user)
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated
-  )
+  const { isAuthenticated, isAdmin } = useAuth()
 
   const [formData, setFormData] = useState({
     title: '',
@@ -17,8 +16,6 @@ const CreatePost: React.FC = () => {
   })
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<boolean>(false)
-
-  const isAdmin = user?.role === 'ADMIN'
 
   if (!isAuthenticated || !isAdmin) {
     return (

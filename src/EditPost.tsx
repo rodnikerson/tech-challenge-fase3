@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { RootState, AppDispatch } from './redux/store'
 import { fetchPosts } from './redux/slices/postsSlice'
+import { useAuth } from './hooks/useAuth'
 
 const EditPost: React.FC = () => {
   const { postId } = useParams<{ postId: string }>()
@@ -12,11 +13,9 @@ const EditPost: React.FC = () => {
   const { posts, loading, error } = useSelector(
     (state: RootState) => state.posts
   )
-  const user = useSelector((state: RootState) => state.auth.user)
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated
-  )
-  const isAdmin = user?.role === 'ADMIN'
+
+  const { isAuthenticated, isAdmin } = useAuth()
+
   const post = posts.find((p) => p.id === postId)
 
   const [formData, setFormData] = useState({
