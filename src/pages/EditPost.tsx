@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { AppDispatch } from './redux/store'
-import { fetchPosts } from './redux/slices/postsSlice'
-import { useAuth } from './hooks/useAuth'
-import { usePosts } from './hooks/usePosts'
-import { Loading } from './components/Loading'
-import { ErrorAlert } from './components/ErrorAlert'
-import { PostNotFound } from './components/PostNotFound'
+import { AppDispatch } from '../redux/store'
+import { fetchPosts } from '../redux/slices/postsSlice'
+import { useAuth } from '../hooks/useAuth'
+import { usePosts } from '../hooks/usePosts'
+import { Loading } from '../components/Loading'
+import { ErrorAlert } from '../components/ErrorAlert'
+import { PostNotFound } from '../components/PostNotFound'
 
 const EditPost: React.FC = () => {
   const { postId } = useParams<{ postId: string }>()

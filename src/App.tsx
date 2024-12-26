@@ -1,11 +1,11 @@
 import { Routes, Route } from 'react-router-dom'
-import Home from './Home'
-import PostDetail from './PostDetail'
-import Login from './Login'
-import CreatePost from './CreatePost'
-import AdminPanel from './AdminPanel'
+import Home from './pages/Home'
+import PostDetail from './pages/PostDetail'
+import Login from './pages/Login'
+import CreatePost from './pages/CreatePost'
+import AdminPanel from './pages/AdminPanel'
+import EditPost from './pages/EditPost'
 import './App.css'
-import EditPost from './EditPost'
 
 function App() {
   return (
