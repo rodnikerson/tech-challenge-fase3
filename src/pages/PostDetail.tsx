@@ -1,9 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
-import { usePosts } from '../hooks/usePosts'
+import { usePosts } from '../hooks'
 import { useEffect } from 'react'
-import { Loading } from '../components/Loading'
-import { ErrorAlert } from '../components/ErrorAlert'
-import { PostNotFound } from '../components/PostNotFound'
+import { Loading, ErrorAlert, PostNotFound } from '../components'
 
 function PostDetail() {
   const { postId } = useParams<{ postId: string }>()

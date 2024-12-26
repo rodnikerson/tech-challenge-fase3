@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../hooks/useAuth'
+import { useAuth } from '../hooks'
 import PostForm from '../components/PostForm'
 
 const CreatePost: React.FC = () => {

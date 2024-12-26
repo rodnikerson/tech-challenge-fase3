@@ -2,11 +2,8 @@ import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { fetchPosts } from '../redux/slices/postsSlice'
 import { AppDispatch } from '../redux/store'
-import { usePosts } from '../hooks/usePosts'
-import PostCard from '../components/PostCard'
-import { Loading } from '../components/Loading'
-import { ErrorAlert } from '../components/ErrorAlert'
-import { PostNotFound } from '../components/PostNotFound'
+import { usePosts } from '../hooks'
+import { Loading, ErrorAlert, PostNotFound, PostCard } from '../components'
 
 function Home() {
   const dispatch = useDispatch<AppDispatch>()
