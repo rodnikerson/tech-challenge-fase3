@@ -1,13 +1,10 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { RootState } from './redux/store'
 import { useAuth } from './hooks/useAuth'
 
 const CreatePost: React.FC = () => {
   const navigate = useNavigate()
-  const user = useSelector((state: RootState) => state.auth.user)
-  const { isAuthenticated, isAdmin } = useAuth()
+  const { isAuthenticated, isAdmin, user } = useAuth()
 
   const [formData, setFormData] = useState({
     title: '',

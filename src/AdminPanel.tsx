@@ -1,19 +1,18 @@
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { fetchPosts, deletePost } from './redux/slices/postsSlice'
-import { RootState, AppDispatch } from './redux/store'
+import { AppDispatch } from './redux/store'
 import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from './hooks/useAuth'
+import { usePosts } from './hooks/usePosts'
 
 import { FaEdit } from 'react-icons/fa'
 import { MdDeleteForever } from 'react-icons/md'
-import { useAuth } from './hooks/useAuth'
 
 function AdminPanel() {
   const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate()
-  const { posts, loading, error } = useSelector(
-    (state: RootState) => state.posts
-  )
+  const { posts, loading, error } = usePosts()
   const { isAuthenticated, isAdmin } = useAuth()
 
   useEffect(() => {

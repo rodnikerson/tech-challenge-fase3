@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { fetchPosts } from './redux/slices/postsSlice'
-import { RootState, AppDispatch } from './redux/store'
+import { AppDispatch } from './redux/store'
+import { usePosts } from './hooks/usePosts'
 
 function Home() {
   const dispatch = useDispatch<AppDispatch>()
-  const { posts, loading, error } = useSelector(
-    (state: RootState) => state.posts
-  )
+  const { posts, loading, error } = usePosts()
   const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {

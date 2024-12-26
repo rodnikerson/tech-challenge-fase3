@@ -1,12 +1,19 @@
 import { useParams, Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { RootState } from './redux/store'
+import { usePosts } from './hooks/usePosts'
+import { useEffect } from 'react'
 
 function PostDetail() {
   const { postId } = useParams<{ postId: string }>()
-  const post = useSelector((state: RootState) =>
-    state.posts.posts.find((p) => p.id.toString() === postId)
-  )
+  const { posts, loading, error, getPosts } = usePosts()
+
+  useEffect(() => {
+    getPosts()
+  }, [getPosts])
+
+  const post = posts.find((p) => p.id.toString() === postId)
+
+  if (loading) return <p>Carregando post...</p>
+  if (error) return <p>Erro: {error}</p>
 
   if (!post) {
     return (

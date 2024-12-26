@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { RootState, AppDispatch } from './redux/store'
+import { AppDispatch } from './redux/store'
 import { fetchPosts } from './redux/slices/postsSlice'
 import { useAuth } from './hooks/useAuth'
+import { usePosts } from './hooks/usePosts'
 
 const EditPost: React.FC = () => {
   const { postId } = useParams<{ postId: string }>()
   const navigate = useNavigate()
   const dispatch = useDispatch<AppDispatch>()
 
-  const { posts, loading, error } = useSelector(
-    (state: RootState) => state.posts
-  )
+  const { posts, loading, error } = usePosts()
 
   const { isAuthenticated, isAdmin } = useAuth()
 
