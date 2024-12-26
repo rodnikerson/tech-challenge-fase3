@@ -12,6 +12,11 @@ const EditPost: React.FC = () => {
   const { posts, loading, error } = useSelector(
     (state: RootState) => state.posts
   )
+  const user = useSelector((state: RootState) => state.auth.user)
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  )
+  const isAdmin = user?.role === 'ADMIN'
   const post = posts.find((p) => p.id === postId)
 
   const [formData, setFormData] = useState({
@@ -81,6 +86,23 @@ const EditPost: React.FC = () => {
     } catch (err: any) {
       setLocalError(err.message)
     }
+  }
+
+  if (!isAuthenticated || !isAdmin) {
+    return (
+      <div className="flex flex-col gap-16 items-center justify-center h-screen">
+        <h2 className="text-9xl">&#x25D5; &#xFE35; &#x25D5;</h2>
+        <h2 className="text-3xl">Acesso negado</h2>
+
+        <button
+          type="button"
+          onClick={() => navigate('/')}
+          className="mt-4 text-blue-500 underline"
+        >
+          Voltar para a lista de posts
+        </button>
+      </div>
+    )
   }
 
   if (loading) return <p>Carregando post...</p>

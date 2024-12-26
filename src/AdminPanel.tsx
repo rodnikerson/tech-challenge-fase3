@@ -2,20 +2,45 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchPosts, deletePost } from './redux/slices/postsSlice'
 import { RootState, AppDispatch } from './redux/store'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { FaEdit } from 'react-icons/fa'
 import { MdDeleteForever } from 'react-icons/md'
 
 function AdminPanel() {
   const dispatch = useDispatch<AppDispatch>()
+  const navigate = useNavigate()
   const { posts, loading, error } = useSelector(
     (state: RootState) => state.posts
   )
+  const user = useSelector((state: RootState) => state.auth.user)
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  )
+  const isAdmin = user?.role === 'ADMIN'
 
   useEffect(() => {
-    dispatch(fetchPosts())
-  }, [dispatch])
+    if (isAuthenticated && isAdmin) {
+      dispatch(fetchPosts())
+    }
+  }, [dispatch, isAuthenticated, isAdmin])
+
+  if (!isAuthenticated || !isAdmin) {
+    return (
+      <div className="flex flex-col gap-16 items-center justify-center h-screen">
+        <h2 className="text-9xl">&#x25D5; &#xFE35; &#x25D5;</h2>
+        <h2 className="text-3xl">Acesso negado</h2>
+
+        <button
+          type="button"
+          onClick={() => navigate('/')}
+          className="mt-4 text-blue-500 underline"
+        >
+          Voltar para a lista de posts
+        </button>
+      </div>
+    )
+  }
 
   const handleDelete = (postId: string) => {
     if (window.confirm('Tem certeza de que deseja excluir este post?')) {
